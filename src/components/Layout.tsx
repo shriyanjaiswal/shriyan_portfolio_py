@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Navigation from "./Navigation";
 import ParallaxBackground from "./ParallaxBackground";
+import Footer from "@/components/Footer.tsx";
 
 interface LayoutProps {
     children: ReactNode;
@@ -328,6 +329,8 @@ const Layout = ({ children }: LayoutProps) => {
                     </motion.main>
                 )}
             </AnimatePresence>
+
+            <Footer />
 
             {/* Content Enhancement Overlays */}
             <div className="fixed inset-0 z-20 pointer-events-none">

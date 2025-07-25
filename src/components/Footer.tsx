@@ -14,10 +14,14 @@ import {
     Instagram,
     Globe
 } from "lucide-react";
+import {usePersonalInfo} from "@/hooks/usePersonalInfo.ts";
+import {DotLottieReact} from "@lottiefiles/dotlottie-react";
 
 // Enhanced Professional Footer Component
-const Footer = ({ personalInfo }) => {
+const Footer = () => {
     const currentYear = new Date().getFullYear();
+
+    const {data: personalInfo, isLoading: loadingInfo} = usePersonalInfo();
 
     const footerNavigation = [
         { name: 'Home', href: '#home' },
@@ -49,8 +53,24 @@ const Footer = ({ personalInfo }) => {
         { icon: Coffee, text: "100+ Cups of Coffee" }
     ];
 
+    if (loadingInfo) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+                <div className="text-center">
+                    <DotLottieReact
+                        src="https://lottie.host/206cf556-6aab-4cc8-aa2d-7598ec0fbedc/jvDXSqpSNx.lottie"
+                        loop
+                        autoplay
+                        className="w-64 h-64 mx-auto mb-4"
+                    />
+                    <p className="text-white text-lg">Loading your portfolio...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <footer className="relative bg-gradient-to-br from-purple-900 via-purple-900 to-gray-900 border-t border-gray-700/50 overflow-hidden">
+        <footer className="relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.3),transparent_50%)]"></div>

@@ -395,7 +395,7 @@ const Contact = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900"
+            className="min-h-screen"
         >
           {/* Hero Section */}
           <section ref={heroRef} className="min-h-screen flex items-center justify-center px-4 pt-20 relative overflow-hidden">
@@ -619,9 +619,6 @@ const Contact = () => {
               </ScrollReveal>
             </div>
           </section>
-
-          {/* Footer */}
-          <Footer personalInfo={personalInfo} />
         </motion.div>
       </>
   );

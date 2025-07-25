@@ -1050,9 +1050,6 @@ const Home = () => {
                         </motion.div>
                     </ScrollReveal>
                 </section>
-
-                {/* Footer */}
-                <Footer personalInfo={personalInfo} />
             </motion.div>
         </>
     );
