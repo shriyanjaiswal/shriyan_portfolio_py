@@ -2,7 +2,6 @@ import {AnimatePresence, motion, useScroll, useSpring, useTransform} from "frame
 import {
     Calendar,
     ChevronDown,
-    ChevronUp,
     Download,
     ExternalLink,
     GitFork,
@@ -14,7 +13,11 @@ import {
     Star,
     Tag,
     Users,
-    ArrowUp
+    ArrowUp,
+    Sparkles,
+    Code,
+    Zap,
+    Heart
 } from "lucide-react";
 import {useInView} from "react-intersection-observer";
 import {useEffect, useState, useCallback, useMemo} from "react";
@@ -22,9 +25,8 @@ import GlassCard from "../components/GlassCard";
 import {usePersonalInfo} from "../hooks/usePersonalInfo";
 import {DotLottieReact} from '@lottiefiles/dotlottie-react';
 import {useProjects} from "@/hooks/useProjects.ts";
-import Footer from "@/components/Footer.tsx";
 
-// Typewriter Effect Component
+// Enhanced Typewriter Effect Component
 const TypewriterEffect = ({ text, className = "" }) => {
     const [displayText, setDisplayText] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,7 +56,7 @@ const TypewriterEffect = ({ text, className = "" }) => {
                     setIsPaused(true);
                 }
             }
-        }, isPaused ? 1500 : isDeleting ? 50 : 100);
+        }, isPaused ? 2000 : isDeleting ? 50 : 120);
 
         return () => clearTimeout(timeout);
     }, [currentIndex, isDeleting, isPaused, text]);
@@ -64,7 +66,7 @@ const TypewriterEffect = ({ text, className = "" }) => {
             {displayText}
             <motion.span
                 animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
                 className="inline-block w-0.5 h-6 bg-current ml-1"
             />
         </span>
@@ -75,8 +77,8 @@ const TypewriterEffect = ({ text, className = "" }) => {
 const optimizedVariants = {
     hidden: {
         opacity: 0,
-        y: 30,
-        scale: 0.95,
+        y: 40,
+        scale: 0.9,
         transition: { duration: 0.3 }
     },
     visible: {
@@ -84,7 +86,7 @@ const optimizedVariants = {
         y: 0,
         scale: 1,
         transition: {
-            duration: 0.5,
+            duration: 0.6,
             ease: [0.25, 0.1, 0.25, 1]
         }
     }
@@ -95,13 +97,13 @@ const staggerContainer = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2
+            staggerChildren: 0.15,
+            delayChildren: 0.3
         }
     }
 };
 
-// Scroll to top button component
+// Enhanced Scroll to top button component
 const ScrollToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -129,22 +131,25 @@ const ScrollToTop = () => {
         <AnimatePresence>
             {isVisible && (
                 <motion.button
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0 }}
+                    initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0, rotate: 180 }}
                     onClick={scrollToTop}
-                    className="fixed bottom-8 right-8 z-50 p-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
+                    className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 group"
+                    whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                 >
-                    <ArrowUp size={24} />
+                    <ArrowUp size={24} className="group-hover:animate-bounce" />
+
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
                 </motion.button>
             )}
         </AnimatePresence>
     );
 };
 
-// Progress bar component
+// Enhanced Progress bar component
 const ScrollProgress = () => {
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
@@ -155,13 +160,13 @@ const ScrollProgress = () => {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 z-50 transform-gpu"
+            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 z-50 transform-gpu shadow-lg shadow-purple-500/50"
             style={{ scaleX, transformOrigin: "0%" }}
         />
     );
 };
 
-// Scroll-triggered animation component
+// Enhanced Scroll-triggered animation component
 const ScrollReveal = ({ children, direction = "up", delay = 0 }) => {
     const { scrollY } = useScroll();
     const [ref, inView] = useInView({
@@ -180,14 +185,14 @@ const ScrollReveal = ({ children, direction = "up", delay = 0 }) => {
         <motion.div
             ref={ref}
             style={{ y, opacity }}
-            transition={{ delay, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ delay, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         >
             {children}
         </motion.div>
     );
 };
 
-// GitHub Hover Card Component (Optimized)
+// Enhanced GitHub Hover Card Component
 const GitHubCard = ({personalInfo, isVisible}) => {
     const [githubData, setGithubData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -223,13 +228,18 @@ const GitHubCard = ({personalInfo, isVisible}) => {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-50"
         >
-            <div className="bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-gray-600 via-gray-700 to-gray-900 backdrop-blur-3xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl shadow-purple-500/20 min-w-[320px]">
+            <GlassCard
+                variant="dark"
+                intensity="heavy"
+                className="min-w-[350px] p-6 border-purple-500/30"
+                glow={true}
+            >
                 {loading ? (
                     <div className="flex items-center justify-center py-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400"></div>
+                        <div className="spinner-large"></div>
                     </div>
                 ) : githubData ? (
                     <div className="space-y-4">
@@ -237,11 +247,11 @@ const GitHubCard = ({personalInfo, isVisible}) => {
                             <img
                                 src={githubData.avatar_url}
                                 alt={githubData.login}
-                                className="w-16 h-16 rounded-full border-2 border-purple-400/30"
+                                className="w-16 h-16 rounded-full border-2 border-purple-400/30 shadow-lg"
                             />
                             <div className="flex-1">
                                 <h3 className="text-white font-semibold text-lg">{githubData.name || githubData.login}</h3>
-                                <p className="text-blue-200">@{githubData.login}</p>
+                                <p className="text-purple-300">@{githubData.login}</p>
                             </div>
                         </div>
 
@@ -271,16 +281,16 @@ const GitHubCard = ({personalInfo, isVisible}) => {
                             </div>
                         </div>
 
-                        <div className="pt-2 border-t border-gray-700/50">
-                            <button
-                                onClick={() => window.open(githubData.html_url, '_blank')}
-                                className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200"
-                            >
-                                <Github size={16}/>
-                                <span>View Profile</span>
-                                <ExternalLink size={14}/>
-                            </button>
-                        </div>
+                        <motion.button
+                            onClick={() => window.open(githubData.html_url, '_blank')}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200"
+                        >
+                            <Github size={16}/>
+                            <span>View Profile</span>
+                            <ExternalLink size={14}/>
+                        </motion.button>
                     </div>
                 ) : (
                     <div className="text-center py-8">
@@ -288,12 +298,12 @@ const GitHubCard = ({personalInfo, isVisible}) => {
                         <p className="text-gray-400">Unable to load GitHub data</p>
                     </div>
                 )}
-            </div>
+            </GlassCard>
         </motion.div>
     );
 };
 
-// LinkedIn Hover Card Component (Optimized)
+// Enhanced LinkedIn Hover Card Component
 const LinkedInCard = ({personalInfo, isVisible}) => {
     if (!isVisible) return null;
 
@@ -302,18 +312,23 @@ const LinkedInCard = ({personalInfo, isVisible}) => {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-50"
         >
-            <div className="bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-gray-600 via-gray-700 to-gray-900 backdrop-blur-3xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl shadow-purple-500/20 min-w-[300px]">
+            <GlassCard
+                variant="dark"
+                intensity="heavy"
+                className="min-w-[320px] p-6 border-blue-500/30"
+                glow={true}
+            >
                 <div className="space-y-4">
                     <div className="flex items-center space-x-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                        <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-xl">
                             <Linkedin size={32} className="text-white"/>
                         </div>
                         <div className="flex-1">
                             <h3 className="text-white font-semibold text-lg">{personalInfo.name}</h3>
-                            <p className="text-blue-200">{personalInfo.role}</p>
+                            <p className="text-blue-300">{personalInfo.role}</p>
                         </div>
                     </div>
 
@@ -332,23 +347,23 @@ const LinkedInCard = ({personalInfo, isVisible}) => {
                         </p>
                     </div>
 
-                    <div className="pt-2 border-t border-gray-700/50">
-                        <button
-                            onClick={() => window.open(personalInfo.linkedin_url, '_blank')}
-                            className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200"
-                        >
-                            <Linkedin size={16}/>
-                            <span>Let's Connect</span>
-                            <ExternalLink size={14}/>
-                        </button>
-                    </div>
+                    <motion.button
+                        onClick={() => window.open(personalInfo.linkedin_url, '_blank')}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
+                    >
+                        <Linkedin size={16}/>
+                        <span>Let's Connect</span>
+                        <ExternalLink size={14}/>
+                    </motion.button>
                 </div>
-            </div>
+            </GlassCard>
         </motion.div>
     );
 };
 
-// Email Hover Card Component (Optimized)
+// Enhanced Email Hover Card Component
 const EmailCard = ({personalInfo, isVisible}) => {
     if (!isVisible) return null;
 
@@ -361,25 +376,30 @@ const EmailCard = ({personalInfo, isVisible}) => {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-50"
         >
-            <div className="bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-gray-600 via-gray-700 to-gray-900 backdrop-blur-3xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl shadow-purple-500/20 min-w-[300px]">
+            <GlassCard
+                variant="dark"
+                intensity="heavy"
+                className="min-w-[320px] p-6 border-green-500/30"
+                glow={true}
+            >
                 <div className="space-y-4">
                     <div className="flex items-center space-x-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
+                        <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-700 rounded-full flex items-center justify-center shadow-xl">
                             <Mail size={32} className="text-white"/>
                         </div>
                         <div className="flex-1">
                             <h3 className="text-white font-semibold text-lg">Get In Touch</h3>
-                            <p className="text-emerald-400">Let's discuss your project</p>
+                            <p className="text-green-400">Let's discuss your project</p>
                         </div>
                     </div>
 
                     <div className="text-gray-300 text-sm space-y-2">
                         <p className="flex items-center space-x-2">
                             <span>📧</span>
-                            <span className="font-mono text-emerald-400">{personalInfo.email}</span>
+                            <span className="font-mono text-green-400">{personalInfo.email}</span>
                         </p>
                         <p className="flex items-center space-x-2">
                             <span>💬</span>
@@ -391,23 +411,23 @@ const EmailCard = ({personalInfo, isVisible}) => {
                         </p>
                     </div>
 
-                    <div className="pt-2 border-t border-gray-700/50">
-                        <button
-                            onClick={handleEmailClick}
-                            className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200"
-                        >
-                            <Mail size={16}/>
-                            <span>Send Email</span>
-                            <ExternalLink size={14}/>
-                        </button>
-                    </div>
+                    <motion.button
+                        onClick={handleEmailClick}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-4 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-green-500/25 transition-all duration-200"
+                    >
+                        <Mail size={16}/>
+                        <span>Send Email</span>
+                        <ExternalLink size={14}/>
+                    </motion.button>
                 </div>
-            </div>
+            </GlassCard>
         </motion.div>
     );
 };
 
-// Featured Project Card Component (Optimized)
+// Enhanced Featured Project Card Component
 const FeaturedProjectCard = ({project, index, isVisible}) => {
     const defaultProjectImage = 'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=500&h=300&fit=crop&crop=center';
 
@@ -421,24 +441,30 @@ const FeaturedProjectCard = ({project, index, isVisible}) => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{
-                    duration: 0.5,
+                    duration: 0.6,
                     delay: index * 0.1,
                     ease: [0.25, 0.1, 0.25, 1]
                 }}
                 onClick={() => handleProjectClick(project)}
-                className="transform-gpu"
+                className="transform-gpu h-full"
             >
-                <GlassCard className="cursor-pointer group bg-[#1a1a3a]/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:transform hover:scale-105">
-                    <div className="relative mb-4 overflow-hidden rounded-t-lg">
+                <GlassCard
+                    className="cursor-pointer group h-full"
+                    variant="dark"
+                    intensity="heavy"
+                    hover={true}
+                    glow={true}
+                >
+                    <div className="relative mb-6 overflow-hidden rounded-xl">
                         <img
                             src={project.image_url || defaultProjectImage}
                             alt={project.name}
-                            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                            className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                             onError={(e) => {
                                 e.target.src = defaultProjectImage;
                             }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"/>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"/>
 
                         <div className="absolute inset-0 flex items-center justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             {project.live_demo_url && (
@@ -446,9 +472,9 @@ const FeaturedProjectCard = ({project, index, isVisible}) => {
                                     href={project.live_demo_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    whileHover={{ scale: 1.1 }}
+                                    whileHover={{ scale: 1.1, y: -2 }}
                                     onClick={(e) => e.stopPropagation()}
-                                    className="p-3 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-colors"
+                                    className="p-3 bg-green-600/90 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-green-700 transition-colors border border-green-400/30"
                                     aria-label="View Live Demo"
                                 >
                                     <ExternalLink size={20}/>
@@ -459,18 +485,25 @@ const FeaturedProjectCard = ({project, index, isVisible}) => {
                                     href={project.source_code_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    whileHover={{ scale: 1.1 }}
+                                    whileHover={{ scale: 1.1, y: -2 }}
                                     onClick={(e) => e.stopPropagation()}
-                                    className="p-3 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition-colors"
+                                    className="p-3 bg-gray-800/90 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-gray-700 transition-colors border border-gray-600/30"
                                     aria-label="View Source Code"
                                 >
                                     <Github size={20}/>
                                 </motion.a>
                             )}
                         </div>
+
+                        {/* Project category badge */}
+                        <div className="absolute top-4 left-4">
+                            <span className="px-3 py-1 bg-purple-600/80 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-purple-400/30">
+                                {project.category || 'Featured'}
+                            </span>
+                        </div>
                     </div>
 
-                    <div className="space-y-4 p-6">
+                    <div className="space-y-4">
                         <div>
                             <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
                                 {project.name}
@@ -482,7 +515,7 @@ const FeaturedProjectCard = ({project, index, isVisible}) => {
 
                         {(project.start_date || project.end_date) && (
                             <div className="flex items-center text-gray-400 text-sm mb-3">
-                                <Calendar size={14} className="mr-2"/>
+                                <Calendar size={14} className="mr-2 text-purple-400"/>
                                 <span>
                                     {project.start_date || 'Started'} - {project.end_date || 'Present'}
                                 </span>
@@ -490,21 +523,21 @@ const FeaturedProjectCard = ({project, index, isVisible}) => {
                         )}
 
                         <div>
-                            <div className="flex items-center text-gray-400 text-sm mb-2">
-                                <Tag size={14} className="mr-2"/>
+                            <div className="flex items-center text-gray-400 text-sm mb-3">
+                                <Tag size={14} className="mr-2 text-purple-400"/>
                                 <span>Technologies</span>
                             </div>
                             <div className="flex flex-wrap gap-2">
                                 {(project.technologies || ['React', 'JavaScript', 'CSS']).slice(0, 3).map((tech) => (
                                     <span
                                         key={tech}
-                                        className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs border border-purple-500/30 hover:bg-purple-500/30 transition-colors"
+                                        className="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-xs border border-purple-500/30 hover:bg-purple-600/30 transition-colors font-medium"
                                     >
                                         {tech}
                                     </span>
                                 ))}
                                 {(project.technologies || []).length > 3 && (
-                                    <span className="px-2 py-1 bg-gray-500/20 text-gray-300 rounded-full text-xs border border-gray-500/30">
+                                    <span className="px-3 py-1 bg-gray-600/20 text-gray-300 rounded-full text-xs border border-gray-500/30 font-medium">
                                         +{(project.technologies || []).length - 3} more
                                     </span>
                                 )}
@@ -517,7 +550,7 @@ const FeaturedProjectCard = ({project, index, isVisible}) => {
     );
 };
 
-// Testimonial Card Component (Optimized)
+// Enhanced Testimonial Card Component
 const TestimonialCard = ({testimonial, index, sectionsInView}) => {
     const getInitials = (name) => {
         return name.split(' ').map(n => n[0]).join('').toUpperCase();
@@ -533,9 +566,15 @@ const TestimonialCard = ({testimonial, index, sectionsInView}) => {
                     delay: index * 0.15,
                     ease: [0.25, 0.1, 0.25, 1]
                 }}
-                className="transform-gpu"
+                className="transform-gpu h-full"
             >
-                <GlassCard className="h-full p-6 relative hover:transform hover:scale-105 transition-all duration-300">
+                <GlassCard
+                    className="h-full p-6 relative"
+                    variant="dark"
+                    intensity="heavy"
+                    hover={true}
+                    glow={true}
+                >
                     <div className="absolute top-4 right-4 opacity-20">
                         <Quote size={32} className="text-purple-400"/>
                     </div>
@@ -555,7 +594,7 @@ const TestimonialCard = ({testimonial, index, sectionsInView}) => {
                     </blockquote>
 
                     <div className="flex items-center space-x-3">
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-sm bg-gradient-to-r ${testimonial.color}`}>
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-sm bg-gradient-to-r ${testimonial.color} shadow-lg`}>
                             {testimonial.image ? (
                                 <img
                                     src={testimonial.image}
@@ -586,7 +625,6 @@ const TestimonialCard = ({testimonial, index, sectionsInView}) => {
     );
 };
 
-
 const Home = () => {
     const { scrollY } = useScroll();
     const [heroRef, heroInView] = useInView({ threshold: 0.3, triggerOnce: true });
@@ -598,9 +636,9 @@ const Home = () => {
     const {data: personalInfo, isLoading: loadingInfo} = usePersonalInfo();
     const {data: projectsData, isLoading: loadingProjects} = useProjects();
 
-    // Parallax effects
+    // Enhanced parallax effects
     const heroY = useTransform(scrollY, [0, 500], [0, 150]);
-    const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+    const heroOpacity = useTransform(scrollY, [0, 300], [1, 0.8]);
 
     // Optimized project filtering
     const featuredProjects = useMemo(() => {
@@ -612,35 +650,39 @@ const Home = () => {
         return filtered.length > 0 ? filtered : (projectsData?.slice(0, 3) || []);
     }, [projectsData]);
 
-    // Professional Statistics Data
+    // Enhanced Professional Statistics Data
     const statistics = useMemo(() => [
         {
             title: "Projects Delivered",
             count: "15+",
             description: "Successfully delivered full-stack applications with modern architecture, focusing on scalability, performance optimization, and maintainable code structure.",
-            color: "from-purple-500 to-pink-500"
+            color: "from-purple-600 to-pink-600",
+            icon: Code
         },
         {
             title: "Technologies Mastered",
             count: "25+",
             description: "Proficient across frontend, backend, and DevOps technologies including React, Node.js, Python, AWS, and modern development frameworks.",
-            color: "from-blue-500 to-purple-500"
+            color: "from-blue-600 to-purple-600",
+            icon: Zap
         },
         {
             title: "Years Experience",
             count: "2+",
             description: "Hands-on experience in software development, from concept to deployment, with expertise in agile methodologies and client collaboration.",
-            color: "from-green-500 to-blue-500"
+            color: "from-green-600 to-blue-600",
+            icon: Star
         },
         {
             title: "Client Satisfaction",
             count: "100%",
             description: "Committed to delivering exceptional results on time and within budget. Available for new projects, collaborations, and full-time opportunities.",
-            color: "from-pink-500 to-purple-500"
+            color: "from-pink-600 to-purple-600",
+            icon: Heart
         }
     ], []);
 
-    // Professional Client Testimonials
+    // Enhanced Professional Client Testimonials
     const testimonials = useMemo(() => [
         {
             name: "Utkarsh Sinha",
@@ -649,7 +691,7 @@ const Home = () => {
             image: "",
             feedback: "Working with this developer was exceptional. They delivered our blockchain advertising platform ahead of schedule with clean, scalable code. Their technical expertise and problem-solving skills are outstanding. They consistently went above and beyond to ensure the platform met our evolving needs.",
             project: "Blockchain Ad Platform",
-            color: "from-purple-500 to-pink-500"
+            color: "from-purple-600 to-pink-600"
         },
         {
             name: "Shriyan Jaiswal",
@@ -658,7 +700,7 @@ const Home = () => {
             image: "",
             feedback: "An incredibly talented developer who brings both technical excellence and creative solutions. Their full-stack expertise helped us build a robust, user-friendly application that exceeded our expectations. Communication was seamless throughout, and their proactive approach made collaboration effortless.",
             project: "Full-Stack Development",
-            color: "from-blue-500 to-purple-500"
+            color: "from-blue-600 to-purple-600"
         },
         {
             name: "Lucky Singh",
@@ -667,7 +709,7 @@ const Home = () => {
             image: "",
             feedback: "Rare to find a developer who truly understands both technical implementation and design principles so well. They perfectly translated our designs into responsive, interactive interfaces. Their attention to detail and unwavering commitment to user experience elevated the final product beyond our expectations.",
             project: "UI/UX Implementation",
-            color: "from-green-500 to-blue-500"
+            color: "from-green-600 to-blue-600"
         }
     ], []);
 
@@ -699,7 +741,7 @@ const Home = () => {
 
     if (loadingInfo || loadingProjects) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-purple-950 to-gray-950">
                 <div className="text-center">
                     <DotLottieReact
                         src="https://lottie.host/206cf556-6aab-4cc8-aa2d-7598ec0fbedc/jvDXSqpSNx.lottie"
@@ -715,7 +757,7 @@ const Home = () => {
 
     if (!personalInfo) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-purple-950 to-gray-950">
                 <div className="text-center">
                     <div className="text-white text-xl mb-4">Failed to load personal information</div>
                     <button
@@ -761,7 +803,7 @@ const Home = () => {
                 exit={{ opacity: 0 }}
                 className="min-h-screen"
             >
-                {/* Hero Section */}
+                {/* Enhanced Hero Section */}
                 <section
                     id="home"
                     ref={heroRef}
@@ -772,29 +814,36 @@ const Home = () => {
                         variants={staggerContainer}
                         className="text-center max-w-4xl mx-auto relative z-10"
                     >
-                        {/* Hero Image */}
+                        {/* Enhanced Hero Image */}
                         <motion.div variants={optimizedVariants} className="mb-8">
                             {personalInfo.image_url ? (
                                 <motion.div
                                     whileHover={{ scale: 1.05, rotateY: 15 }}
                                     transition={{ duration: 0.3 }}
-                                    className="w-48 h-48 mx-auto mb-8 rounded-full overflow-hidden border-4 border-purple-400/30 shadow-2xl shadow-purple-500/20"
+                                    className="w-56 h-56 mx-auto mb-8 rounded-full overflow-hidden border-4 border-purple-500/40 shadow-2xl shadow-purple-500/30 relative group"
                                 >
                                     <img
                                         src={personalInfo.image_url}
                                         alt={personalInfo.name}
                                         className="w-full h-full object-cover"
                                     />
+
+                                    {/* Glow effect on hover */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </motion.div>
                             ) : (
                                 <motion.div
                                     whileHover={{ scale: 1.05, rotateY: 15 }}
                                     transition={{ duration: 0.3 }}
-                                    className="w-48 h-48 mx-auto mb-8 rounded-full overflow-hidden border-4 border-purple-400/30 shadow-2xl shadow-purple-500/20 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center"
+                                    className="w-56 h-56 mx-auto mb-8 rounded-full overflow-hidden border-4 border-purple-500/40 shadow-2xl shadow-purple-500/30 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center group relative"
                                 >
                                     <div className="text-6xl font-bold text-white">
                                         {personalInfo.name.split(' ').map(n => n[0]).join('')}
                                     </div>
+
+                                    {/* Animated sparkles */}
+                                    <Sparkles className="absolute top-4 right-4 text-white/60 animate-pulse" size={20} />
+                                    <Sparkles className="absolute bottom-4 left-4 text-white/40 animate-pulse" size={16} />
                                 </motion.div>
                             )}
                         </motion.div>
@@ -811,7 +860,7 @@ const Home = () => {
                             <p className="text-2xl md:text-3xl text-gray-300 mb-8 font-light">
                                 <TypewriterEffect
                                     text={personalInfo.role}
-                                    className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-500 font-medium"
+                                    className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 font-medium"
                                 />
                             </p>
                         </motion.div>
@@ -824,13 +873,16 @@ const Home = () => {
 
                         <motion.div variants={optimizedVariants} className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
                             <motion.button
-                                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.3)" }}
+                                whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(139, 92, 246, 0.4)" }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={handleDownloadResume}
-                                className="flex items-center space-x-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-2xl"
+                                className="flex items-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-2xl relative overflow-hidden group"
                             >
                                 <Download size={24}/>
                                 <span>Download Resume</span>
+
+                                {/* Shimmer effect */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer" />
                             </motion.button>
 
                             <div className="flex space-x-4 relative">
@@ -845,10 +897,13 @@ const Home = () => {
                                             whileHover={{ scale: 1.1, y: -2 }}
                                             whileTap={{ scale: 0.95 }}
                                             transition={{ duration: 0.2 }}
-                                            className="p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 text-white hover:bg-white/20 transition-all duration-300 block"
+                                            className="p-4 bg-gray-900/40 backdrop-blur-sm rounded-xl border border-gray-700/30 text-white hover:bg-gray-800/50 transition-all duration-300 block relative group"
                                             aria-label={social.label}
                                         >
                                             <social.icon size={24}/>
+
+                                            {/* Glow effect */}
+                                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
                                         </motion.a>
 
                                         <AnimatePresence>
@@ -892,7 +947,7 @@ const Home = () => {
                     </motion.div>
                 </section>
 
-                {/* Professional Overview Section */}
+                {/* Enhanced Professional Overview Section */}
                 <section id="about" ref={sectionsRef} className="py-20 px-4">
                     <ScrollReveal direction="up">
                         <motion.div
@@ -921,9 +976,21 @@ const Home = () => {
                                                 delay: index * 0.15,
                                                 ease: [0.25, 0.1, 0.25, 1]
                                             }}
-                                            className="transform-gpu"
+                                            className="transform-gpu h-full"
                                         >
-                                            <GlassCard className="text-center h-full p-6 hover:transform hover:scale-105 transition-all duration-300">
+                                            <GlassCard
+                                                className="text-center h-full p-6 group"
+                                                variant="dark"
+                                                intensity="heavy"
+                                                hover={true}
+                                                glow={true}
+                                            >
+                                                <div className="flex justify-center mb-4">
+                                                    <div className={`p-3 rounded-full bg-gradient-to-r ${item.color} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                                                        <item.icon size={24} className="text-white" />
+                                                    </div>
+                                                </div>
+
                                                 <div className={`text-4xl font-bold mb-4 bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
                                                     {item.count}
                                                 </div>
@@ -938,7 +1005,7 @@ const Home = () => {
                     </ScrollReveal>
                 </section>
 
-                {/* Featured Projects Section */}
+                {/* Enhanced Featured Projects Section */}
                 <section id="projects" ref={projectsRef} className="py-20 px-4">
                     <ScrollReveal direction="up">
                         <motion.div
@@ -987,9 +1054,9 @@ const Home = () => {
                                         className="text-center mt-12"
                                     >
                                         <motion.button
-                                            whileHover={{ scale: 1.05 }}
+                                            whileHover={{ scale: 1.05, y: -2 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300"
+                                            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300"
                                         >
                                             View All Projects
                                         </motion.button>
@@ -1000,7 +1067,7 @@ const Home = () => {
                     </ScrollReveal>
                 </section>
 
-                {/* Client Testimonials Section */}
+                {/* Enhanced Client Testimonials Section */}
                 <section ref={testimonialRef} className="py-20 px-4">
                     <ScrollReveal direction="up">
                         <motion.div
@@ -1038,10 +1105,10 @@ const Home = () => {
                                 >
                                     <p className="text-gray-300 mb-6 text-lg">Ready to start your next project?</p>
                                     <motion.button
-                                        whileHover={{ scale: 1.05 }}
+                                        whileHover={{ scale: 1.05, y: -2 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={() => window.open(`mailto:${personalInfo.email}`, '_blank')}
-                                        className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300"
+                                        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300"
                                     >
                                         Let's Work Together
                                     </motion.button>
