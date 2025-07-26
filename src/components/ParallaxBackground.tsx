@@ -1,13 +1,12 @@
-import { useEffect, useRef, useMemo, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Points, PointMaterial, Sphere, Box, Octahedron, Torus, Cone, Icosahedron } from "@react-three/drei";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import {useEffect, useRef, useMemo, useState} from "react";
+import {Canvas, useFrame, useThree} from "@react-three/fiber";
+import {motion, useScroll, useTransform, useSpring} from "framer-motion";
 import * as THREE from "three";
 
 // Enhanced Particle System with Performance Optimizations
-const EnhancedParticleSystem = ({ count = 3000 }) => {
+const EnhancedParticleSystem = ({count = 3000}) => {
     const mesh = useRef<THREE.Points>(null);
-    const { viewport } = useThree();
+    const {viewport} = useThree();
 
     const particles = useMemo(() => {
         const positions = new Float32Array(count * 3);
@@ -59,7 +58,7 @@ const EnhancedParticleSystem = ({ count = 3000 }) => {
             velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.0008;
         }
 
-        return { positions, colors, sizes, velocities };
+        return {positions, colors, sizes, velocities};
     }, [count]);
 
     useFrame((state) => {
@@ -132,16 +131,16 @@ const Enhanced3DObjects = () => {
     const groupRef = useRef<THREE.Group>(null);
 
     const objects = useMemo(() => [
-        { type: 'octahedron', position: [15, 6, -20], color: '#6d28d9', baseScale: 1.0 },
-        { type: 'box', position: [-12, -8, -18], color: '#be185d', baseScale: 0.7 },
-        { type: 'sphere', position: [10, -12, -25], color: '#1e40af', baseScale: 0.8 },
-        { type: 'torus', position: [-16, 10, -30], color: '#0e7490', baseScale: 1.2 },
-        { type: 'cone', position: [20, -6, -18], color: '#7c3aed', baseScale: 0.9 },
-        { type: 'icosahedron', position: [-10, 15, -22], color: '#c2410c', baseScale: 0.6 },
-        { type: 'octahedron', position: [6, 9, -35], color: '#1d4ed8', baseScale: 0.5 },
-        { type: 'sphere', position: [-20, -4, -15], color: '#0891b2', baseScale: 1.1 },
-        { type: 'box', position: [12, 16, -28], color: '#7c2d12', baseScale: 0.4 },
-        { type: 'torus', position: [-6, -16, -12], color: '#be123c', baseScale: 0.8 },
+        {type: 'octahedron', position: [15, 6, -20], color: '#6d28d9', baseScale: 1.0},
+        {type: 'box', position: [-12, -8, -18], color: '#be185d', baseScale: 0.7},
+        {type: 'sphere', position: [10, -12, -25], color: '#1e40af', baseScale: 0.8},
+        {type: 'torus', position: [-16, 10, -30], color: '#0e7490', baseScale: 1.2},
+        {type: 'cone', position: [20, -6, -18], color: '#7c3aed', baseScale: 0.9},
+        {type: 'icosahedron', position: [-10, 15, -22], color: '#c2410c', baseScale: 0.6},
+        {type: 'octahedron', position: [6, 9, -35], color: '#1d4ed8', baseScale: 0.5},
+        {type: 'sphere', position: [-20, -4, -15], color: '#0891b2', baseScale: 1.1},
+        {type: 'box', position: [12, 16, -28], color: '#7c2d12', baseScale: 0.4},
+        {type: 'torus', position: [-6, -16, -12], color: '#be123c', baseScale: 0.8},
     ], []);
 
     useFrame((state) => {
@@ -187,63 +186,12 @@ const Enhanced3DObjects = () => {
             });
         }
     });
-
-    return (
-        <group ref={groupRef}>
-            {objects.map((obj, index) => {
-                let GeometryComponent;
-                let args: any = [0.8];
-
-                switch (obj.type) {
-                    case 'octahedron':
-                        GeometryComponent = Octahedron;
-                        break;
-                    case 'box':
-                        GeometryComponent = Box;
-                        args = [0.8, 0.8, 0.8];
-                        break;
-                    case 'sphere':
-                        GeometryComponent = Sphere;
-                        args = [0.8, 24, 24];
-                        break;
-                    case 'torus':
-                        GeometryComponent = Torus;
-                        args = [0.8, 0.3, 12, 24];
-                        break;
-                    case 'cone':
-                        GeometryComponent = Cone;
-                        args = [0.8, 1.6, 6];
-                        break;
-                    case 'icosahedron':
-                        GeometryComponent = Icosahedron;
-                        break;
-                    default:
-                        GeometryComponent = Octahedron;
-                }
-
-                return (
-                    <GeometryComponent
-                        key={index}
-                        position={obj.position as [number, number, number]}
-                        args={args}
-                    >
-                        <meshBasicMaterial
-                            color={obj.color}
-                            wireframe
-                            transparent
-                            opacity={0.25}
-                        />
-                    </GeometryComponent>
-                );
-            })}
-        </group>
-    );
 };
 
 // Enhanced CSS Floating Particles with Dark Theme
 const FloatingCSSParticles = () => {
     const particles = useMemo(() => {
-        return Array.from({ length: 60 }, (_, i) => ({
+        return Array.from({length: 60}, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
@@ -289,7 +237,7 @@ const FloatingCSSParticles = () => {
 };
 
 const ParallaxBackground = () => {
-    const { scrollYProgress } = useScroll();
+    const {scrollYProgress} = useScroll();
     const [canvasLoaded, setCanvasLoaded] = useState(false);
     const [isLowPerformance, setIsLowPerformance] = useState(false);
 
@@ -335,27 +283,27 @@ const ParallaxBackground = () => {
     return (
         <div className="fixed inset-0 z-0">
             {/* Enhanced Dark Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-purple-950 to-gray-950" />
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-purple-950 to-gray-950"/>
 
             {/* Enhanced Animated Gradient Layers */}
             <motion.div
-                style={{ y: y1 }}
+                style={{y: y1}}
                 className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-900/12 to-purple-800/8"
             />
 
             <motion.div
-                style={{ y: y2 }}
+                style={{y: y2}}
                 className="absolute inset-0 bg-gradient-to-br from-blue-900/8 via-transparent to-purple-900/8"
             />
 
             <motion.div
-                style={{ y: y3 }}
+                style={{y: y3}}
                 className="absolute inset-0 bg-gradient-to-tl from-pink-900/6 via-transparent to-cyan-900/6"
             />
 
             {/* Enhanced Parallax Shapes with Darker Colors */}
             <motion.div
-                style={{ y: y4 }}
+                style={{y: y4}}
                 className="absolute inset-0 opacity-20"
             >
                 <motion.div
@@ -416,15 +364,15 @@ const ParallaxBackground = () => {
             </motion.div>
 
             {/* CSS Floating Particles */}
-            <FloatingCSSParticles />
+            <FloatingCSSParticles/>
 
             {/* Enhanced 3D Canvas with Performance Optimizations */}
             {canvasLoaded && !isLowPerformance && (
                 <div className="absolute inset-0">
                     <Canvas
-                        camera={{ position: [0, 0, 1], fov: 75 }}
+                        camera={{position: [0, 0, 1], fov: 75}}
                         dpr={[1, Math.min(window.devicePixelRatio, 2)]}
-                        performance={{ min: 0.5 }}
+                        performance={{min: 0.5}}
                         gl={{
                             antialias: false,
                             alpha: true,
@@ -434,19 +382,19 @@ const ParallaxBackground = () => {
                         }}
                     >
                         {/* Enhanced lighting for dark theme */}
-                        <ambientLight intensity={0.1} />
-                        <pointLight position={[15, 15, 15]} intensity={0.3} color="#6d28d9" />
-                        <pointLight position={[-15, -15, 15]} intensity={0.3} color="#be185d" />
-                        <pointLight position={[0, 0, 25]} intensity={0.2} color="#1e40af" />
+                        <ambientLight intensity={0.1}/>
+                        <pointLight position={[15, 15, 15]} intensity={0.3} color="#6d28d9"/>
+                        <pointLight position={[-15, -15, 15]} intensity={0.3} color="#be185d"/>
+                        <pointLight position={[0, 0, 25]} intensity={0.2} color="#1e40af"/>
 
                         {/* Atmospheric fog for depth */}
-                        <fog attach="fog" args={['#0a0a0f', 35, 70]} />
+                        <fog attach="fog" args={['#0a0a0f', 35, 70]}/>
 
                         {/* Particle systems */}
-                        <EnhancedParticleSystem count={isLowPerformance ? 1500 : 2500} />
+                        <EnhancedParticleSystem count={isLowPerformance ? 1500 : 2500}/>
 
                         {/* 3D floating objects */}
-                        <Enhanced3DObjects />
+                        <Enhanced3DObjects/>
                     </Canvas>
                 </div>
             )}
@@ -454,7 +402,8 @@ const ParallaxBackground = () => {
             {/* Fallback for low performance devices */}
             {isLowPerformance && (
                 <div className="absolute inset-0 opacity-30">
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-pink-900/20" />
+                    <div
+                        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-pink-900/20"/>
                 </div>
             )}
 
@@ -468,7 +417,8 @@ const ParallaxBackground = () => {
             />
 
             {/* Content readability overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 pointer-events-none" />
+            <div
+                className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 pointer-events-none"/>
         </div>
     );
 };

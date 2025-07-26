@@ -643,7 +643,7 @@ const Home = () => {
     // Optimized project filtering
     const featuredProjects = useMemo(() => {
         const filtered = projectsData?.filter(project => {
-            const featuredNames = ["Travel/Tourism Website", "Gaming Website", "E-Commerce system"];
+            const featuredNames = ["Travel/Tourism Website","Recipe Master", "Gaming Website"];
             return featuredNames.some(name => project.name?.toLowerCase().includes(name.toLowerCase()));
         }).slice(0, 3) || [];
 
@@ -694,7 +694,7 @@ const Home = () => {
             color: "from-purple-600 to-pink-600"
         },
         {
-            name: "Shriyan Jaiswal",
+            name: "Praveen Yadav",
             position: "Lead Developer",
             company: "KryptoAD",
             image: "",
@@ -723,8 +723,8 @@ const Home = () => {
             document.body.removeChild(link);
         } else {
             const link = document.createElement('a');
-            link.href = '/resume/praveenyadavresume.png';
-            link.download = 'Praveen_Yadav_Resume.png';
+            link.href = 'https://drive.google.com/file/d/1Gh9rRk0EXuleQCphKCViap8G2IkjNU1G/view?usp=sharing';
+            link.download = 'Shriyan_Jaiswal_Resume.png';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -749,7 +749,7 @@ const Home = () => {
                         autoplay
                         className="w-64 h-64 mx-auto mb-4"
                     />
-                    <p className="text-white text-lg">Loading your portfolio...</p>
+                    {/*<p className="text-white text-lg">Loading your portfolio...</p>*/}
                 </div>
             </div>
         );

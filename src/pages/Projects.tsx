@@ -257,7 +257,7 @@ const Projects = () => {
     const heroY = useTransform(scrollY, [0, 500], [0, 150]);
     const heroOpacity = useTransform(scrollY, [0, 300], [1, 0.8]);
 
-    const tabs = ["All Projects", "Mobile App", "Website", "Desktop", "API"];
+    const tabs = ["All Projects", "Mobile App", "Website", "Desktop"];
 
     const filteredProjects = projectsData?.filter(project =>
         activeTab === "All Projects" || project.category === activeTab

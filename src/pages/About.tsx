@@ -254,7 +254,7 @@ const About = () => {
                 autoplay
                 className="w-64 h-64 mx-auto mb-4"
             />
-            <p className="text-white text-lg">Loading about information...</p>
+            {/*<p className="text-white text-lg">Loading about information...</p>*/}
           </div>
         </div>
     );
@@ -334,7 +334,7 @@ const About = () => {
 
                   <div className="space-y-6 mb-12">
                     <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                      {personalInfo.bio}
+                      "{personalInfo.bio}"
                     </p>
 
                     {personalInfo.quote && (

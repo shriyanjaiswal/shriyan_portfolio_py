@@ -289,7 +289,7 @@ const Layout = ({ children }: LayoutProps) => {
             {/* Loading Screen */}
             <AnimatePresence mode="wait">
                 {isLoading && (
-                    <LoadingScreen message="Loading your portfolio..." />
+                    <LoadingScreen message="" />
                 )}
             </AnimatePresence>
 

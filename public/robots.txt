@@ -6,7 +6,7 @@ Disallow: /*.json$
 Disallow: /api/
 
 # Sitemap location
-Sitemap: https://praveenyadavme.vercel.app/sitemap.xml
+Sitemap: https://shriyanjaiswalme.vercel.app/sitemap.xml
 
 # Crawl delay (optional)
 Crawl-delay: 1

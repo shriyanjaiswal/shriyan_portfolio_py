@@ -32,7 +32,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to you (the portfolio owner)
     const emailToOwner = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: ["praveen885127@gmail.com"], // Your email address
+      to: ["shriyan.jaiswal0906@gmail.com"], // Your email address
       subject: `New Contact Form Message from ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -49,7 +49,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to the person who contacted you
     const confirmationEmail = await resend.emails.send({
-      from: "Praveen Yadav <onboarding@resend.dev>",
+      from: "Shriyan Jaiswal <onboarding@resend.dev>",
       to: [email],
       subject: "Thank you for contacting me!",
       html: `
@@ -59,7 +59,7 @@ const handler = async (req: Request): Promise<Response> => {
         <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
           ${message.replace(/\n/g, '<br>')}
         </div>
-        <p>Best regards,<br>Praveen Yadav</p>
+        <p>Best regards,<br>Shriyan Jaiswal</p>
         <p><em>Full Stack Developer</em></p>
       `,
     });

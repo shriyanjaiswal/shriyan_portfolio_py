@@ -83,7 +83,7 @@ const Navigation = () => {
                 </motion.div>
 
                 <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent font-extrabold tracking-wider">
-                  Praveen Yadav
+                  Shriyan Jaiswal
                 </span>
 
                 {/* Logo glow effect */}
@@ -255,7 +255,7 @@ const Navigation = () => {
               {/* Mobile menu footer */}
               <div className="px-6 py-3 border-t border-gray-700/30 mt-4">
                 <div className="text-center">
-                  <span className="text-gray-500 text-sm">© 2024 Praveen Yadav</span>
+                  <span className="text-gray-500 text-sm">© 2024 Shriyan Jaiswal</span>
                 </div>
               </div>
             </motion.div>

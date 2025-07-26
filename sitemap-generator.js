@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const baseUrl = 'https://praveenyadavme.vercel.app';
+const baseUrl = 'https://shriyanjaiswalme.vercel.app';
 const pages = [
     { url: '/', changefreq: 'weekly', priority: '1.0' },
     { url: '/projects', changefreq: 'weekly', priority: '0.9' },
@@ -41,7 +41,7 @@ const generateHtmlSitemap = () => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitemap - Praveen Yadav Portfolio</title>
+    <title>Sitemap - Shriyan Jaiswal Portfolio</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
         h1 { color: #6366f1; }
@@ -52,7 +52,7 @@ const generateHtmlSitemap = () => {
     </style>
 </head>
 <body>
-    <h1>Sitemap - Praveen Yadav Portfolio</h1>
+    <h1>Sitemap - Shriyan Jaiswal Portfolio</h1>
     <ul>
 ${pages.map(page => `        <li><a href="${baseUrl}${page.url}">${baseUrl}${page.url}</a></li>`).join('\n')}
     </ul>

@@ -66,7 +66,7 @@ const Footer = () => {
                         autoplay
                         className="w-64 h-64 mx-auto mb-4"
                     />
-                    <p className="text-white text-lg">Loading your portfolio...</p>
+                    {/*<p className="text-white text-lg">Loading your portfolio...</p>*/}
                 </div>
             </div>
         );
@@ -119,7 +119,7 @@ const Footer = () => {
 
                                 <h3 className="text-3xl font-bold text-white">
                                     <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-                                        {personalInfo?.name || 'Praveen Yadav'}
+                                        {personalInfo?.name || 'Shriyan Jaiswal'}
                                     </span>
                                 </h3>
                             </div>
@@ -173,45 +173,6 @@ const Footer = () => {
                         </motion.div>
                     </div>
 
-                    {/* Enhanced Quick Links */}
-                    <div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            viewport={{ once: true }}
-                        >
-                            <h4 className="text-xl font-semibold text-white mb-6 flex items-center">
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mr-3">
-                                    <Globe size={16} className="text-white" />
-                                </div>
-                                Quick Links
-                            </h4>
-                            <ul className="space-y-3">
-                                {footerNavigation.map((item, index) => (
-                                    <motion.li
-                                        key={item.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <motion.a
-                                            href={item.href}
-                                            whileHover={{ x: 8, scale: 1.02 }}
-                                            className="text-gray-400 hover:text-purple-400 transition-all duration-200 text-sm flex items-center group py-2 px-3 rounded-lg hover:bg-gray-800/30"
-                                        >
-                                            <motion.span
-                                                className="w-2 h-2 bg-purple-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                                                whileHover={{ scale: 1.5 }}
-                                            />
-                                            <span className="group-hover:font-medium transition-all duration-200">{item.name}</span>
-                                        </motion.a>
-                                    </motion.li>
-                                ))}
-                            </ul>
-                        </motion.div>
-                    </div>
 
                     {/* Enhanced Services */}
                     <div>
@@ -247,37 +208,38 @@ const Footer = () => {
                                     </motion.li>
                                 ))}
                             </ul>
-
-                            {/* Enhanced Contact Info */}
-                            <div className="mt-8 space-y-4">
-                                <h5 className="text-lg font-medium text-white mb-4 flex items-center">
-                                    <Mail size={18} className="mr-2 text-green-400" />
-                                    Get In Touch
-                                </h5>
-                                <motion.div
-                                    className="flex items-center space-x-3 text-gray-400 text-sm p-3 rounded-lg bg-gray-900/20 backdrop-blur-sm border border-gray-700/30"
-                                    whileHover={{ scale: 1.02, borderColor: "rgba(139, 92, 246, 0.3)" }}
-                                >
-                                    <Mail size={16} className="text-green-400" />
-                                    <span className="font-mono">{personalInfo?.email}</span>
-                                </motion.div>
-                                <motion.div
-                                    className="flex items-center space-x-3 text-gray-400 text-sm p-3 rounded-lg bg-gray-900/20 backdrop-blur-sm border border-gray-700/30"
-                                    whileHover={{ scale: 1.02, borderColor: "rgba(139, 92, 246, 0.3)" }}
-                                >
-                                    <MapPin size={16} className="text-blue-400" />
-                                    <span>Sarnath, India</span>
-                                </motion.div>
-                                <motion.div
-                                    className="flex items-center space-x-3 text-gray-400 text-sm p-3 rounded-lg bg-gray-900/20 backdrop-blur-sm border border-gray-700/30"
-                                    whileHover={{ scale: 1.02, borderColor: "rgba(139, 92, 246, 0.3)" }}
-                                >
-                                    <Globe size={16} className="text-purple-400" />
-                                    <span>Available Worldwide</span>
-                                </motion.div>
-                            </div>
                         </motion.div>
                     </div>
+
+                    {/* Enhanced Contact Info */}
+                    <div className="mt-8 space-y-4">
+                        <h5 className="text-lg font-medium text-white mb-4 flex items-center">
+                            <Mail size={18} className="mr-2 text-green-400" />
+                            Get In Touch
+                        </h5>
+                        <motion.div
+                            className="flex items-center space-x-3 text-gray-400 text-sm p-3 rounded-lg bg-gray-900/20 backdrop-blur-sm border border-gray-700/30"
+                            whileHover={{ scale: 1.02, borderColor: "rgba(139, 92, 246, 0.3)" }}
+                        >
+                            <Mail size={16} className="text-green-400" />
+                            <span className="font-mono">{personalInfo?.email}</span>
+                        </motion.div>
+                        <motion.div
+                            className="flex items-center space-x-3 text-gray-400 text-sm p-3 rounded-lg bg-gray-900/20 backdrop-blur-sm border border-gray-700/30"
+                            whileHover={{ scale: 1.02, borderColor: "rgba(139, 92, 246, 0.3)" }}
+                        >
+                            <MapPin size={16} className="text-blue-400" />
+                            <span>Sarnath, India</span>
+                        </motion.div>
+                        <motion.div
+                            className="flex items-center space-x-3 text-gray-400 text-sm p-3 rounded-lg bg-gray-900/20 backdrop-blur-sm border border-gray-700/30"
+                            whileHover={{ scale: 1.02, borderColor: "rgba(139, 92, 246, 0.3)" }}
+                        >
+                            <Globe size={16} className="text-purple-400" />
+                            <span>Available Worldwide</span>
+                        </motion.div>
+                    </div>
+
                 </div>
 
                 {/* Enhanced Newsletter Section */}
@@ -328,62 +290,6 @@ const Footer = () => {
 
                         <p className="text-gray-500 text-sm mt-4">No spam, unsubscribe at any time</p>
                     </div>
-                </motion.div>
-
-                {/* Enhanced Bottom Section */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    viewport={{ once: true }}
-                    className="pt-8 border-t border-gray-800/50"
-                >
-                    <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <motion.p
-                            className="text-gray-400 text-sm"
-                            whileHover={{ scale: 1.02 }}
-                        >
-                            © {currentYear} <span className="text-purple-400 font-medium">{personalInfo?.name || 'Praveen Yadav'}</span>. All rights reserved.
-                        </motion.p>
-
-                        <div className="flex items-center space-x-2 text-gray-400 text-sm">
-                            <span>Crafted with</span>
-                            <motion.div
-                                animate={{
-                                    scale: [1, 1.3, 1],
-                                    rotate: [0, 5, -5, 0]
-                                }}
-                                transition={{
-                                    duration: 2,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
-                            >
-                                <Heart size={16} className="text-red-400 fill-current" />
-                            </motion.div>
-                            <span>using</span>
-                            <span className="text-purple-400 font-medium">React & Framer Motion</span>
-                        </div>
-                    </div>
-
-                    {/* Tech stack badges */}
-                    <motion.div
-                        className="flex flex-wrap justify-center gap-3 mt-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        viewport={{ once: true }}
-                    >
-                        {['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Three.js'].map((tech, index) => (
-                            <motion.span
-                                key={tech}
-                                whileHover={{ scale: 1.1, y: -2 }}
-                                className="px-3 py-1 bg-gray-800/50 backdrop-blur-sm border border-gray-700/30 rounded-full text-xs text-gray-400 hover:text-purple-400 hover:border-purple-500/30 transition-all duration-200"
-                            >
-                                {tech}
-                            </motion.span>
-                        ))}
-                    </motion.div>
                 </motion.div>
             </div>
 

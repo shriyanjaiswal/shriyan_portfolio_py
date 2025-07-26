@@ -82,16 +82,16 @@ CREATE TABLE public.journey_timeline (
 INSERT INTO public.personal_info (
   name, role, bio, quote, location, email, phone, github_url, linkedin_url, portfolio_url
 ) VALUES (
-  'Praveen Yadav',
+  'Shriyan Jaiswal',
   'Aspiring Full Stack Developer',
   'Motivated final-year BCA student passionate about building modern apps, solving problems, and exploring full-stack development with innovative solutions.',
   'Code is poetry, and every line I write tells a story.',
   'Buddha Nagar Colony, Sarnath',
-  'praveen885127@gmail.com',
+  'shriyan.jaiswal0906@gmail.com',
   '+917290955962',
   'https://github.com/pyapril15',
   'https://linkedin.com/in/pyapril15',
-  'https://imypraveenyadav.web.app'
+  'https://imyshriyanjaiswal.web.app'
 );
 
 -- Insert journey timeline data
